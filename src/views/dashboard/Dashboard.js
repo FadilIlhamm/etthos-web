@@ -1,4 +1,5 @@
-import React, { lazy } from 'react'
+import React, { lazy,useState } from 'react'
+import { Link, Redirect } from 'react-router-dom'
 import {
   CBadge,
   CButton,
@@ -11,6 +12,7 @@ import {
   CProgress,
   CRow,
   CCallout,
+  CImg
 } from '@coreui/react'
 import {
   CChartBar,
@@ -23,13 +25,44 @@ import {
 import CIcon from '@coreui/icons-react'
 
 
-
-const WidgetsDropdown = lazy(() => import('../widgets/WidgetsDropdown.js'))
-const WidgetsBrand = lazy(() => import('../widgets/WidgetsBrand.js'))
-
 const Dashboard = () => {
+  const [redirectOut, setRedirectOut] = useState(false);
+
+  const onLogout = event => {
+    event.preventDefault();
+    
+    sessionStorage.removeItem('auth')
+    if(sessionStorage.getItem('auth') === null){
+      setRedirectOut(true)
+    }
+  }
+
+  if ( redirectOut === true ) {
+    return (<Redirect exact  to="/login" />)
+  } 
+
   return (
     <>
+      <CRow className="mb-5">
+        <CCol md="9" xs="8">
+          <h2 className="text-info">Beranda</h2>
+        </CCol>
+        <CCol md="3" xs="4"  className="text-right">
+          <CRow>
+            <CCol md="12" xs="12">
+              <CIcon name="cil-account-logout" size="xl" className="mb-4 mr-3 text-info" onClick= {(event)=>onLogout(event)} /> 
+              <div className="c-avatar">
+                <CImg
+                  src={'avatars/6.jpg'}
+                  className="c-avatar-img"
+                  alt="admin@bootstrapmaster.com"
+                />
+              </div>
+            </CCol>
+           
+          </CRow>
+        </CCol>
+      </CRow>
       <CRow>
         <CCol md="6" sm="12">
           <span className="font-weight-bold text-info">Statistik SKU</span>

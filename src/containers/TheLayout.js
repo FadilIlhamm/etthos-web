@@ -5,7 +5,6 @@ import {
   TheContent,
   TheSidebar,
   TheFooter,
-  TheHeader
 } from './index'
 
 const TheLayout = () => {
@@ -19,7 +18,6 @@ const TheLayout = () => {
     <div className={classes}>
       <TheSidebar/>
       <div className="c-wrapper">
-        <TheHeader/>
         <div className="c-body">
           <TheContent/>
         </div>
