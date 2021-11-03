@@ -1,5 +1,5 @@
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useState, useEffect  } from 'react'
+import { useSelector, useDispatch, } from 'react-redux'
 import {
   CCreateElement,
   CSidebar,
@@ -23,6 +23,12 @@ import navigation from './_nav'
 const TheSidebar = () => {
   const dispatch = useDispatch()
   const show = useSelector(state => state.sidebarShow)
+  const [auth, setAuth]     = useState(null)
+
+  useEffect(() => {
+    const login = JSON.parse(sessionStorage.getItem('Auth'))
+    setAuth(login)
+  });
 
   return (
     <CSidebar
@@ -41,7 +47,7 @@ const TheSidebar = () => {
       <CSidebarNav className="mt-4 pt-4">
         <CCreateElement
           className="p-4"
-          items={navigation}
+          items={auth !== null ? (auth.data.role === 1 ? navigation._nav : navigation.navFinance) : ''  }
           components={{
             CSidebarNavDivider,
             CSidebarNavDropdown,
