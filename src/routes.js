@@ -7,6 +7,11 @@ const GudangSurabaya = React.lazy(() => import('./views/Gudang/GudangSurabaya'))
 const GudangCilacap = React.lazy(() => import('./views/Gudang/GudangCilacap'));
 const VerifikasiPembayaran = React.lazy(() => import('./views/Transaksi/VerifikasiPembayaran'));
 const RiwayatTransaksi = React.lazy(() => import('./views/Transaksi/RiwayatTransaksi'));
+const BiayaAdvertiser = React.lazy(() => import('./views/biayaAdvertiser/BiayaAdvertiser'));
+const Profil = React.lazy(() => import('./views/profile/Profile'));
+const UbahKataSandi = React.lazy(() => import('./views/profile/UbahKataSandi'));
+
+
 
 
 
@@ -19,6 +24,10 @@ const routes = [
   { path: '/gudang-cilacap', name: 'Gudang Cilacap', component: GudangCilacap },
   { path: '/verif-pembayaran', name: 'Verifikasi Pembayaran', component: VerifikasiPembayaran },
   { path: '/riwayat-trx', name: 'Riwayat Transaksi', component: RiwayatTransaksi },
+  { path: '/biaya-advertiser', name: 'Biaya Advertiser', component: BiayaAdvertiser },
+  { path: '/profil', name: 'Profil', component: Profil },
+  { path: '/ubah-kata-sandi', name: 'Ubah Kata Sandi', component: UbahKataSandi },
+
 
 
 

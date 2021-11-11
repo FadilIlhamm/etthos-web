@@ -59,7 +59,7 @@ const Login = () => {
       body: 'email=' + username.value + '&password=' + password.value
     }
   
-    const api = await fetch(`http://45.13.132.252:3000/api/ethos/login`, requestOptions)
+    const api = await fetch(`http://34.101.240.70:3000/api/ethos/login`, requestOptions)
     const res = await api.json();
     console.log(res)
     

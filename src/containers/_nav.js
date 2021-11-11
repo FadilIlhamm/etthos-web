@@ -1,84 +1,16 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUsers} from '@fortawesome/free-solid-svg-icons'
 
-export default {
 
-  _nav : [
-    {
-      _tag: 'CSidebarNavItem',
-      name: 'Beranda',
-      to: '/dashboard',
-      icon: "cil-grid",
-    },
-    {
-      _tag: 'CSidebarNavItem',
-      name: 'Stok',
-      to: '',
-      icon: 'cil-list',
-    },
-    {
-      _tag: 'CSidebarNavDropdown',
-      name: 'Gudang',
-      icon: 'cil-home',
-      _children: [
-        {
-          _tag: 'CSidebarNavItem',
-          name: 'Gudang Jakarta',
-          to: '/gudang-jakarta',
-        },
-        {
-          _tag: 'CSidebarNavItem',
-          name: 'Gudang Surabaya',
-          to: '/gudang-surabaya',
-        },
-        {
-          _tag: 'CSidebarNavItem',
-          name: 'Gudang Cilacap',
-          to: '/gudang-cilacap',
-        },
-      ]
-    },
-    {
-      _tag: 'CSidebarNavItem',
-      name: 'Pelanggan',
-      to: '/pelanggan',
-      icon: 'cil-user-follow',
-    },
-    {
-      _tag: 'CSidebarNavItem',
-      name: 'Master Data',
-      to: '',
-      icon: 'cil-file',
-    },
-    {
-      _tag: 'CSidebarNavItem',
-      name: 'Karyawan',
-      to: '',
-      icon: 'cil-user',
-    },
-    {
-      _tag: 'CSidebarNavItem',
-      name: 'Laporan',
-      to: '',
-      icon: 'cil-clipboard',
-    },
-    {
-      _tag: 'CSidebarNavItem',
-      name: 'Pengaturan',
-      to: '/login',
-      icon: 'cil-settings',
-    },
-    
-  ],
+let itemDefault = []
+const login = JSON.parse(sessionStorage.getItem('Auth'))
 
-  navFinance:[
-    {
-      _tag: 'CSidebarNavItem',
-      name: 'Beranda',
-      to: '/dashboard',
-      icon: "cil-grid",
-    },
-    {
+if(login != null) {
+  if( login.data.roles === 4 )
+  {
+    itemDefault.push({
       _tag: 'CSidebarNavDropdown',
       name: 'Transaksi',
       icon: 'cil-dollar',
@@ -86,7 +18,7 @@ export default {
         {
           _tag: 'CSidebarNavItem',
           name: 'Verifikasi Pembayaran',
-          to: '/verifikasi-pembayaran',
+          to: '/verif-pembayaran',
         },
         {
           _tag: 'CSidebarNavItem',
@@ -94,10 +26,36 @@ export default {
           to: '/riwayat-trx',
         },
       ]
-    },
-  ]
+    })
 
+    itemDefault.push({
+      _tag: 'CSidebarNavItem',
+      name: 'Biaya Advertiser',
+      to: '/biaya-advertiser',
+      icon: 'cil-group',
+    })
+    itemDefault.push({
+      _tag: 'CSidebarNavDropdown',
+      name: 'Pengaturan',
+      icon: 'cil-settings',
+      _children: [
+        {
+          _tag: 'CSidebarNavItem',
+          name: 'Profil',
+          to: '/profil',
+        },
+        {
+          _tag: 'CSidebarNavItem',
+          name: 'Ubah Kata Sandi',
+          to: '/ubah-kata-sandi',
+        },
+      ]
+    })
+  
+    
+  }
 }
 
-
-
+export default {
+  items: itemDefault
+};
