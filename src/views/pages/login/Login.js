@@ -46,6 +46,7 @@ const Login = () => {
   const [open, setOpen] = useState(false);
   const [redirect, setRedirect] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [login,setLogin] = useState(null)
 
   const handleLogin = async (event) => {
     setLoader(true)
@@ -75,11 +76,11 @@ const Login = () => {
       setOpen(true);
     }
   }
-
+  console.log(login)
   if ( redirect === true ) {
     return window.location.reload()
   } else if( sessionStorage.getItem('auth') !== null ) {
-    return (<Redirect exact from="/login" to="/dashboard" />)
+    return (<Redirect to="/verif-pembayaran"/>)
   }
 
   return (
