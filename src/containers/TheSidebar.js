@@ -26,10 +26,10 @@ const TheSidebar = () => {
   const [auth, setAuth]     = useState(null)
 
   useEffect(() => {
-    const login = JSON.parse(sessionStorage.getItem('Auth'))
+    const login = JSON.parse(sessionStorage.getItem('auth'))
     setAuth(login)
-  });
-
+  }, []);
+  
   return (
     <CSidebar
       colorScheme="light"
@@ -47,7 +47,7 @@ const TheSidebar = () => {
       <CSidebarNav className="mt-4 pt-4">
         <CCreateElement
           className="p-4"
-          items={auth !== null ? navigation : ''}
+          items={auth !== null ? navigation.items : ''}
           components={{
             CSidebarNavDivider,
             CSidebarNavDropdown,
