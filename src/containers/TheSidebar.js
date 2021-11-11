@@ -47,7 +47,7 @@ const TheSidebar = () => {
       <CSidebarNav className="mt-4 pt-4">
         <CCreateElement
           className="p-4"
-          items={auth !== null ? (auth.data.role === 1 ? navigation._nav : navigation.navFinance) : ''  }
+          items={auth !== null ? navigation : ''}
           components={{
             CSidebarNavDivider,
             CSidebarNavDropdown,
