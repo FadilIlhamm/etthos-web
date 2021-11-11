@@ -5,10 +5,10 @@ import { faUsers} from '@fortawesome/free-solid-svg-icons'
 
 
 let itemDefault = []
-const login = JSON.parse(sessionStorage.getItem('Auth'))
+const login = JSON.parse(sessionStorage.getItem('auth'))
 
 if(login != null) {
-  if( login.data.roles === 4 )
+  if( login.data.role === 4 )
   {
     itemDefault.push({
       _tag: 'CSidebarNavDropdown',
@@ -57,5 +57,5 @@ if(login != null) {
 }
 
 export default {
-  items: itemDefault
+  items:itemDefault
 };
