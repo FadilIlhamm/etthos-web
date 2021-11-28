@@ -118,7 +118,7 @@ const RiwayatTransaksi = () => {
       <div style={{backgroundColor: '#F2F2F2', borderRadius:10}} className='p-3 mb-2'>
         <CRow >
           <CCol md="4" xs="12">
-            <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} className='border-0 pt-2 pb-3  pl-5 pr-5 rounded text-center text-dark' placeholderText="Tanggal" />
+            <CInput type="date" defaultValue={startDate}  size="lg" className=""></CInput>
           </CCol>
 
           <CCol md="4" xs="12">

@@ -81,7 +81,6 @@ const VerifikasiPembayaran = () => {
             cell : row => (
                 <CRow>
                     <ModalKonfirmasi></ModalKonfirmasi>
-                    <CButton color="warning" size={'md'} className="text-white pr-5 pl-5 ">Detail</CButton>
                 </CRow>
             ),
             sortable : false

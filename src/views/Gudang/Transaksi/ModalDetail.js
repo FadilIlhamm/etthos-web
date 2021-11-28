@@ -11,13 +11,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
-const ModalKonfirmasi = (props) => {
+const ModalDetail = (props) => {
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
 
   return (
     <>
-      <CButton color="info" size={'md'} className="mr-3 pr-5 pl-5" onClick={() => toggle()} >Konfirmasi</CButton>
+      <CButton color="info" size={'md'} className="mr-3 pr-5 pl-5" onClick={() => toggle()} >Detail</CButton>
       <Modal isOpen={modal} toggle={toggle} className='modal-lg' centered >
         <ModalHeader toggle={toggle} charCode="Y" className="border-0">
         </ModalHeader>
@@ -70,4 +70,4 @@ const ModalKonfirmasi = (props) => {
   )
 }
 
-export default ModalKonfirmasi
+export default ModalDetail

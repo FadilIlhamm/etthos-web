@@ -76,11 +76,15 @@ const Login = () => {
       setOpen(true);
     }
   }
-  console.log(login)
+
+  const loginRedirect = JSON.parse(sessionStorage.getItem('auth'))
+
   if ( redirect === true ) {
     return window.location.reload()
-  } else if( sessionStorage.getItem('auth') !== null ) {
+  } else if( loginRedirect !== null && loginRedirect.data.role === 4 ) {
     return (<Redirect to="/verif-pembayaran"/>)
+  }else if( loginRedirect !== null && loginRedirect.data.role === 5 ) {
+    return (<Redirect to="/dashboard-gudang"/>)
   }
 
   return (
