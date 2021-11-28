@@ -132,7 +132,9 @@ import {
   cilWarning,
   cilClipboard,
   cilAccountLogout,
-  cilGroup
+  cilGroup,
+  cilHouse,
+  cilWifiSignal0
 } from '@coreui/icons'
 
 export const icons = Object.assign({}, {
@@ -235,7 +237,9 @@ export const icons = Object.assign({}, {
   cilWarning,
   cilClipboard,
   cilAccountLogout,
-  cilGroup
+  cilGroup,
+  cilHouse,
+  cilWifiSignal0
 }, {
   cifUs,
   cifBr,
