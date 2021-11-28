@@ -5,21 +5,43 @@ import {
   CCol,
   CImg,
 } from '@coreui/react'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 
 
 
-const ModalKonfirmasi = (props) => {
+const ModalStok = (props) => {
+    const { action, buttonLabel, id,style } = props
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
 
   return (
     <>
-      <CButton color="info" size={'md'} className="mr-3 pr-5 pl-5" onClick={() => toggle()} >Konfirmasi</CButton>
+        <CButton 
+            color={ 
+                action === 'insert' ? 'info' : 
+                ( action === 'update' ? 'secondary' : 
+                    (action === 'delete' ? 'danger': 'warning')  
+                )
+            } 
+            size={ action === 'insert' ? 'lg' : 'md'}
+            style ={style}
+            className="mr-3 text-white"
+            onClick={() => toggle()}
+            >
+            { buttonLabel }
+            { action === 'insert' ? ' Tambah Stok' : ''}
+        </CButton>
       <Modal isOpen={modal} toggle={toggle} className='modal-lg' centered >
         <ModalHeader toggle={toggle} charCode="Y" className="border-0">
+            { action === 'insert' ? 'Tambah Stok' : 
+                ( action === 'update' ? 'Ubah Stok' :  
+                        (action === 'delete' ? 'Delete Stok': '-' )
+                )
+            }  
         </ModalHeader>
         <ModalBody>
             <CRow className="mt-2">
@@ -70,4 +92,4 @@ const ModalKonfirmasi = (props) => {
   )
 }
 
-export default ModalKonfirmasi
+export default ModalStok
