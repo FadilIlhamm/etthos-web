@@ -81,10 +81,12 @@ const Login = () => {
 
   if ( redirect === true ) {
     return window.location.reload()
-  } else if( loginRedirect !== null && loginRedirect.data.role === 4 ) {
+  } else if( loginRedirect !== null && loginRedirect.data.role === 6 ) {
     return (<Redirect to="/verif-pembayaran"/>)
-  }else if( loginRedirect !== null && loginRedirect.data.role === 5 ) {
+  }else if( loginRedirect !== null && loginRedirect.data.role === 7 ) {
     return (<Redirect to="/dashboard-gudang"/>)
+  }else if( loginRedirect !== null && loginRedirect.data.role === 5 ) {
+    return (<Redirect to="/dashboard-adv"/>)
   }
 
   return (

@@ -1,4 +1,4 @@
-import React, { lazy, useState } from 'react'
+import React, { lazy, useState,useEffect } from 'react'
 import {Link} from 'react-router-dom'
 import {
   CCol,
@@ -23,56 +23,76 @@ import customStyles from '../styles/stylesTables';
 import ModalKonfirmasi from './ModalKonfirmasi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-
-const usersData = [
-    {no: 1, tanggal: '02/11/2021', invoice: 'INV/02112021' ,nominal: '1.500.000', bank: 'BCA', noRef: '12345',},
-    {no: 2, tanggal: '02/11/2021', invoice: 'INV/02112021' ,nominal: '1.500.000', bank: 'BCA', noRef: '12345',},
-    {no: 3, tanggal: '02/11/2021', invoice: 'INV/02112021' ,nominal: '1.500.000', bank: 'BRI', noRef: '12345',},
-    {no: 4, tanggal: '02/11/2021', invoice: 'INV/02112021' ,nominal: '1.500.000', bank: 'Mandiri', noRef: '12345',},
-    {no: 5, tanggal: '02/11/2021', invoice: 'INV/02112021' ,nominal: '1.500.000', bank: 'CIMB NIAGA', noRef: '12345',},
-    {no: 6, tanggal: '02/11/2021', invoice: 'INV/02112021' ,nominal: '1.500.000', bank: 'BSI', noRef: '12345',},
-    {no: 7, tanggal: '02/11/2021', invoice: 'INV/02112021' ,nominal: '1.500.000', bank: 'BNI', noRef: '12345',},
-]
-
+import axios from 'axios';
+import API_URL from 'src/constans';
 
 const VerifikasiPembayaran = () => {
     const [visible, setVisible] = useState(false);
+    const [data, setData] = useState([]);
+    const [auth, setAuth] = useState(null)
+
+
+    const getTransaksi = async () => {
+        await axios.get(`${API_URL}transaksi/all`, {
+            })
+            .then(res => {
+                let row = res.data.data
+                
+                setData(row);
+            })
+            .catch(error => {
+            if (error) {
+                console.log( "Error : " + error )
+            }
+        })
+    }
+
+    useEffect(() => {
+        const login = JSON.parse(sessionStorage.getItem('auth'))
+        setAuth(login)
+    }, [])
+    
+    useEffect(() => {
+        if(auth !== null){
+            getTransaksi();
+        }
+    }, [auth])
     
     const Columns = [
         {
             name : "No",
-            cell : row => row.no !== null ? row.no : '-',
+            cell : row => row.id !== null ? row.id : '-',
             sortable : true,
             maxWidth: "12px"
         },
         {
             name : "Tanggal",
-            cell : row => row.tanggal !== null ? row.tanggal : '-', 
+            cell : row => row.createdAt !== null ? row.createdAt.substr(8,2) + '/' + row.createdAt.substr(5,2) + '/' + row.createdAt.substr(2,2) : '-', 
             sortable : true,
             maxWidth: "20px"
         },
         {
             name : "Invoice",
-            cell : row => row.invoice !== null ? row.invoice : '-', 
+            cell : row => row.invoiceId !== null ? row.invoiceId : '-', 
             sortable : true,
             maxWidth: "150px"
             
         },
         {
             name : "Nominal",
-            cell : row => row.nominal !== null ? row.nominal : '-', 
+            cell : row => row.totalharga !== null ? row.totalharga.toFixed().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') : '-', 
             sortable : true,
             maxWidth: "40px"
         },
         {
             name : "Bank",
-            cell : row => row.bank !== null ? row.bank : '-', 
+            cell : row => row.daexpedisis !== null ? row.daexpedisis.namabank : '-', 
             sortable : true,
             maxWidth: "150px"
         },
         {
-            name : "No.Ref",
-            cell : row => row.noRef !== null ? row.noRef : '-', 
+            name : "Nomor Rekening",
+            cell : row => row.daexpedisis !== null ? row.daexpedisis.norekening : '-', 
             sortable : true,
             maxWidth: "250px"
         },
@@ -80,7 +100,7 @@ const VerifikasiPembayaran = () => {
             name : "",
             cell : row => (
                 <CRow>
-                    <ModalKonfirmasi></ModalKonfirmasi>
+                    <ModalKonfirmasi idtransaksi={ row.idtransaksi } id={row.id} totalharga={row.totalharga.toFixed().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')} subsidi={row.subsidi.toFixed().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')} ongkoskirim={row.ongkoskirim.toFixed().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')} status={row.status}></ModalKonfirmasi>
                 </CRow>
             ),
             sortable : false
@@ -109,7 +129,7 @@ const VerifikasiPembayaran = () => {
         <CCol md="12" sm="12">
             <DataTable
                 columns={Columns}
-                data={usersData}
+                data={data}
                 noHeader={true} 
                 persistTableHead  
                 highlightOnHover
