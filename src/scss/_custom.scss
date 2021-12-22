@@ -9,3 +9,12 @@
 .c-app{
     background-color: #FFFFFF;
 }
+
+.testimonial-group > .row {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .testimonial-group > .row > .col-xs-4 {
+    display: inline-block;
+    float: none;
+  }

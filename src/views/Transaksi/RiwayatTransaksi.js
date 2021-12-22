@@ -1,4 +1,4 @@
-import React, { lazy, useState } from 'react'
+import React, { lazy, useState,useEffect } from 'react'
 import {Link} from 'react-router-dom'
 import {
   CCol,
@@ -28,74 +28,101 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faFilter, faUniversity, faDownload, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from 'axios';
+import API_URL from 'src/constans';
 
-const usersData = [
-    {no: 1, tanggal: '02/11/2021', nomorTelp: '081234567890' , nama: 'Fadil Ilham' , email:'Fadil@gmail.com', nominal: '1.500.000', bank: 'BCA', status:'Lunas', noRef: '12345',},
-    {no: 2, tanggal: '02/11/2021', nomorTelp: '081234567890' , nama: 'Fadil Ilham' , email:'Fadil@gmail.com', nominal: '1.500.000', bank: 'BCA',  status:'Lunas', noRef: '12345',},
-    {no: 3, tanggal: '02/11/2021', nomorTelp: '081234567890' , nama: 'Fadil Ilham' , email:'Fadil@gmail.com', nominal: '1.500.000', bank: 'BRI', status:'Lunas', noRef: '12345',},
-    {no: 4, tanggal: '02/11/2021', nomorTelp: '081234567890' , nama: 'Fadil Ilham' , email:'Fadil@gmail.com', nominal: '1.500.000', bank: 'Mandiri', status:'Lunas', noRef: '12345',},
-    {no: 5, tanggal: '02/11/2021', nomorTelp: '081234567890' , nama: 'Fadil Ilham' , email:'Fadil@gmail.com', nominal: '1.500.000', bank: 'CIMB NIAGA', status:'Lunas', noRef: '12345',},
-    {no: 6, tanggal: '02/11/2021', nomorTelp: '081234567890' , nama: 'Fadil Ilham' , email:'Fadil@gmail.com', nominal: '1.500.000', bank: 'BSI', status:'Belum Lunas', noRef: '12345',},
-    {no: 7, tanggal: '02/11/2021', nomorTelp: '081234567890' , nama: 'Fadil Ilham' , email:'Fadil@gmail.com', nominal: '1.500.000', bank: 'BNI', status:'Lunas', noRef: '12345',},
-]
 
 
 const RiwayatTransaksi = () => {
     const [startDate, setStartDate] = useState(new Date());
+    const [data, setData] = useState([]);
+    const [auth, setAuth] = useState(null)
+
+    const getTransaksi = async () => {
+      await axios.get(`${API_URL}transaksi/all`, {
+          })
+          .then(res => {
+              let row = res.data.data
+              setData(row);
+          })
+          .catch(error => {
+          if (error) {
+              console.log( "Error : " + error )
+          }
+      })
+    }
+
+    useEffect(() => {
+      const login = JSON.parse(sessionStorage.getItem('auth'))
+      setAuth(login)
+    }, [])
+  
+    useEffect(() => {
+      if(auth !== null){
+        getTransaksi();
+      }
+    }, [auth])
 
     const Columns = [
         {
             name : "No",
-            cell : row => row.no !== null ? row.no : '-',
+            cell : row => row.id !== null ? row.id : '-',
             sortable : true,
             maxWidth: "12px"
         },
         {
-            name : "Tanggal",
-            cell : row => row.tanggal !== null ? row.tanggal : '-', 
-            sortable : true,
-            maxWidth: "20px"
+          name : "Tanggal",
+          cell : row => row.createdAt !== null ? row.createdAt.substr(8,2) + '/' + row.createdAt.substr(5,2) + '/' + row.createdAt.substr(2,2) : '-', 
+          sortable : true,
+          maxWidth: "20px"
         },
         {
-          name : "Nomor Telepon",
-          cell : row => row.nomorTelp !== null ? row.nomorTelp : '-', 
+          name : "Invoice",
+          cell : row => row.invoiceId !== null ? row.invoiceId : '-', 
           sortable : true,
+          maxWidth: "150px"
           
         },
         {
-          name : "Nama",
-          cell : row => row.nama !== null ? row.nama : '-', 
+          name : "Nominal",
+          cell : row => row.totalharga !== null ? row.totalharga.toFixed().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') : '-', 
           sortable : true,
-         
-        },
-        {
-          name : "Email",
-          cell : row => row.email !== null ? row.email : '-', 
-          sortable : true,
-         
-        },
-        {
-            name : "Nominal",
-            cell : row => row.nominal !== null ? row.nominal : '-', 
-            sortable : true,
-            maxWidth: "40px"
+          maxWidth: "40px"
         },
         {
             name : "Bank",
-            cell : row => row.bank !== null ? row.bank : '-', 
+            cell : row => row.daexpedisis !== null ? row.daexpedisis.namabank : '-', 
             sortable : true,
-            maxWidth: "40px"
+            maxWidth: "150px"
+        },
+    
+        {
+          name : "No. Rekening",
+          cell : row => row.daexpedisis !== null ? row.daexpedisis.norekening : '-', 
+          sortable : true,
+          maxWidth: "250px"
         },
         {
-          name : "Status Pembayaran",
-          cell : row => row.status !== null ? row.status : '-', 
+          name : "Status Transaksi",
+          cell : row => (
+            <span 
+            className= { 
+              row.status === 'F' ? 'text-success' : 
+              ( row.status === 'E' ? 'text-warning' : 
+                  (row.status === 'K' ? 'text-danger': 'text-primary')  
+              )
+            }  
+          > 
+          { 
+              row.status === 'F' ? 'Lunas' : 
+              ( row.status === 'E' ? 'Belum Lunas' : 
+                  (row.status === 'K' ? 'Retur': 'Menunggu Konfirmasi')  
+              )
+            }  
+          </span>
+          ), 
           sortable : true,
          
-      },
-        {
-            name : "No.Ref",
-            cell : row => row.noRef !== null ? row.noRef : '-', 
-            sortable : true
         },
         
     ]
@@ -148,7 +175,7 @@ const RiwayatTransaksi = () => {
         <CCol md="12" sm="12">
             <DataTable
                 columns={Columns}
-                data={usersData}
+                data={data}
                 noHeader={true} 
                 persistTableHead  
                 highlightOnHover

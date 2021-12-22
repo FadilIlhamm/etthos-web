@@ -8,7 +8,7 @@ const itemDefault = []
 const login = JSON.parse(sessionStorage.getItem('auth'))
 
 if(login != null) {
-  if( login.data.role === 4 )
+  if( login.data.role === 6 )
   {
     itemDefault.push({
       _tag: 'CSidebarNavDropdown',
@@ -51,7 +51,7 @@ if(login != null) {
       ]
     })
   }
-  if( login.data.role === 5 )
+  if( login.data.role === 7 )
   {
     itemDefault.push({
       _tag: 'CSidebarNavItem',
@@ -69,30 +69,117 @@ if(login != null) {
     },
     {
       _tag: 'CSidebarNavDropdown',
-      name: 'Stok',
+      name: 'Inventory',
       icon: 'cil-basket',
       _children: [
         {
           _tag: 'CSidebarNavItem',
-          name: 'Real Stok',
-          to: '/real-stok',
+          name: 'Inventory',
+          to: '/inventory',
         },
         {
           _tag: 'CSidebarNavItem',
-          name: 'Riwayat Stok',
-          to: '/riwayat-stok',
+          name: 'Real Inventory',
+          to: '/real-inventory',
+        },
+        {
+          _tag: 'CSidebarNavItem',
+          name: 'Riwayat Inventory',
+          to: '/riwayat-inventory',
+        },
+      ]
+    },
+    {
+      _tag: 'CSidebarNavDropdown',
+      name: 'Gudang',
+      icon: 'cil-house',
+      _children: [
+        {
+          _tag: 'CSidebarNavItem',
+          name: 'Gudang Jakarta',
+          to: '/gudang-jakarta',
+        },
+        {
+          _tag: 'CSidebarNavItem',
+          name: 'Gudang Surabaya',
+          to: '/gudang-surabaya',
+        },
+        {
+          _tag: 'CSidebarNavItem',
+          name: 'Gudang Cilacap',
+          to: '/gudang-cilacap',
         },
       ]
     },
     {
       _tag: 'CSidebarNavItem',
-      name: 'Gudang',
-      icon: 'cil-house',
-    },
-    {
-      _tag: 'CSidebarNavItem',
       name: 'Status Barang',
       icon: 'cil-wifi-signal0',
+      to: '/status-barang',
+    },
+    {
+      _tag: 'CSidebarNavDropdown',
+      name: 'Pengaturan',
+      icon: 'cil-settings',
+      _children: [
+        {
+          _tag: 'CSidebarNavItem',
+          name: 'Profil',
+          to: '/profil',
+        },
+        {
+          _tag: 'CSidebarNavItem',
+          name: 'Ubah Kata Sandi',
+          to: '/ubah-kata-sandi',
+        },
+      ]
+    }
+    )
+  }
+  if( login.data.role === 5 )
+  {
+    itemDefault.push({
+      _tag: 'CSidebarNavItem',
+      name: 'Dashboard',
+      icon: 'cil-home',
+      to: '/dashboard-adv',
+    },
+    
+    
+    {
+      _tag: 'CSidebarNavItem',
+      name: 'Buat Iklan',
+      icon: 'cib-analogue',
+      to: '/buat-iklan'
+    },
+    {
+      _tag: 'CSidebarNavDropdown',
+      name: 'Biaya Iklan',
+      icon: 'cil-wallet',
+      _children: [
+        {
+          _tag: 'CSidebarNavItem',
+          name: 'Biaya Iklan',
+          to: '/biaya-iklan',
+        },
+        {
+          _tag: 'CSidebarNavDropdown',
+          name: 'Tagihan Biaya Iklan',
+          _children: [
+            {
+              _tag: 'CSidebarNavItem',
+              name: 'Upload Saldo',
+              to: '/upload-saldo',
+            },
+            {
+              _tag: 'CSidebarNavItem',
+              name: 'Upload Tagihan',
+              to: '/upload-tagihan',
+            },
+            
+          ]
+        },
+      ]
     },
     {
       _tag: 'CSidebarNavDropdown',

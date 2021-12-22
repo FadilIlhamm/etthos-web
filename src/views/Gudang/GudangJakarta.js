@@ -5,11 +5,18 @@ import {
   CRow,
   CDataTable,
   CButtonGroup,
-  CButton
+  CButton,
+  CInputGroup,
+  CInputGroupText,
+  CInput
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import DataTable from 'react-data-table-component';
 import customStyles from '../styles/stylesTables';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch, faPen, faTrashAlt, faPlus, faDownload } from '@fortawesome/free-solid-svg-icons'
+import ModalGudangJakarta from './ModalGudang/ModalGudangJakarta';
+
 
 const usersData = [
     {no: 1, namaProduk: 'bemomio', stok: 12345 },
@@ -35,7 +42,9 @@ const Columns = [
     {
         name : "",
         cell : row => (
-            <Link>Details</Link>
+          <CRow>
+              <ModalGudangJakarta action="detail" buttonLabel="Detail" id={ row.id }></ModalGudangJakarta>
+          </CRow>
         ),
         sortable : false
     },
@@ -48,6 +57,22 @@ const GudangJakarta = () => {
           <h2 className="text-info">Gudang Jakarta</h2>
         </CCol>
       </CRow>
+      <div style={{backgroundColor: '#F2F2F2', borderRadius:10}} className='p-3 mb-2'>
+        <CRow className='mb-2'>
+          <CCol md="6" xs="6">
+            <CInputGroup size="lg">
+                <CInputGroupText className="bg-white" id="basic-addon1" size="lg"><FontAwesomeIcon size="sm" icon={faSearch}/></CInputGroupText>
+                <CInput placeholder="Cari" aria-label="Example text with button addon" aria-describedby="button-addon1"/>
+            </CInputGroup>  
+          </CCol>
+          <CCol md="3" xs="3">
+            <ModalGudangJakarta action="insert" buttonLabel={<FontAwesomeIcon icon={faPlus} />} style={{width:'100%'}}/>
+          </CCol>
+          <CCol md="3" xs="3">
+            <CButton size="lg" style={{width:'100%'}} color='warning'><FontAwesomeIcon size="lg" icon={faDownload}/>  Unduh</CButton>
+          </CCol>
+        </CRow>
+      </div>
       <CRow>
         <CCol md="12" sm="12">
             <DataTable

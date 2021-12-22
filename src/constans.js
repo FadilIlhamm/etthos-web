@@ -1,3 +1,3 @@
-const API_URL = "http://45.13.132.252:3000/api/ethos/";
+const API_URL = "http://34.101.240.70:3000/api/";
 
 export default API_URL

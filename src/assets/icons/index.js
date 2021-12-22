@@ -26,7 +26,8 @@ import {
   cibStripe,
   cibPaypal,
   cibGooglePay,
-  cibCcAmex
+  cibCcAmex,
+  cibAnalogue
 } from '@coreui/icons'
 import {
   cifUs,
@@ -134,7 +135,11 @@ import {
   cilAccountLogout,
   cilGroup,
   cilHouse,
-  cilWifiSignal0
+  cilWifiSignal0,
+  cilBarChart,
+  cilStorage,
+  cilWallet
+  
 } from '@coreui/icons'
 
 export const icons = Object.assign({}, {
@@ -239,7 +244,10 @@ export const icons = Object.assign({}, {
   cilAccountLogout,
   cilGroup,
   cilHouse,
-  cilWifiSignal0
+  cilWifiSignal0,
+  cilBarChart,
+  cilStorage,
+  cilWallet
 }, {
   cifUs,
   cifBr,
@@ -271,5 +279,6 @@ export const icons = Object.assign({}, {
   cibStripe,
   cibPaypal,
   cibGooglePay,
-  cibCcAmex
+  cibCcAmex,
+  cibAnalogue
 })
