@@ -12,7 +12,8 @@ import {
   CProgress,
   CRow,
   CCallout,
-  CImg
+  CImg,
+  CSelect
 } from '@coreui/react'
 import {
   CChartBar,
@@ -45,7 +46,7 @@ const DashboardGudang = () => {
     <>
       <CRow className="mb-5">
         <CCol md="9" xs="8">
-          <h2 className="text-info">Dashboard Gudang</h2>
+          <h2 className="text-info">Dashboard</h2>
         </CCol>
         <CCol md="3" xs="4"  className="text-right">
           <CRow>
@@ -65,37 +66,86 @@ const DashboardGudang = () => {
       </CRow>
       <CRow>
         <CCol md="6" sm="12">
-          <span className="font-weight-bold text-info">Statistik SKU</span>
-          <CChartBar
-              datasets={[
-                {
-                  label : false,
-                  backgroundColor: [
-                    '#41B883',
-                    '#E46651',
-                    '#00D8FF',
-                    '#DD1B16',
-
-                  ],
-                  data: [40, 20, 12, 39, 10, 40, 39]
-                }
-              ]}
-              labels= {['Senin','Selasa','Rabu','Kamis', 'Jumat', 'Sabtu', 'Minggu']}
-              options={{
-                tooltips: {
-                  enabled: true
-                },
-                legend: {
-                  display: false,
-                },
-              }}
-          />
-
-          <span className="font-weight-bold text-info">Rekap</span>
+          <CCard color='success'>
+            <CRow className="p-5">
+              <CCol lg='3' md="4" sm="5" xs='5'>
+                <CIcon size={'5xl'} name={'cilBarChart'} className="text-white" />
+              </CCol>
+              <CCol lg='9' md="8" sm="7" xs='7'>
+                <h2 className="text-white mb-3">Availability Rate</h2>
+                <h2 className="text-white">100</h2>
+              </CCol>
+            </CRow>
+          </CCard>
         </CCol>
 
         <CCol md="6" sm="12">
-
+          <CCard color='warning'>
+            <CRow className="p-5">
+              <CCol lg='3' md="4" sm="5" xs='5'>
+                <CIcon size={'5xl'} name={'cilStorage'} className="text-white" />
+              </CCol>
+              <CCol lg='9' md="8" sm="7" xs='7'>
+                <h2 className="text-white mb-3">Stok</h2>
+                <h2 className="text-white">100</h2>
+              </CCol>
+            </CRow>
+          </CCard>
+        </CCol>
+      </CRow>
+      <CRow>
+        <CCol md="12" sm="12">
+          <CCard>
+            <CCardHeader className='border-0'>
+              <h6>Status Ekspedisi</h6>
+              
+              <CSelect size="lg" style={{width:'100%'}} className='text-info border-0'>
+                <option value="1">Ninja Express</option>
+              </CSelect>
+            </CCardHeader>
+            <CCardBody>
+              <CRow>
+                <CCol md="4" sm="12">
+                  <CCard className="p-4 border-dark">
+                    <span className="mb-2">Dalam Proses</span>
+                    <h1>10</h1>
+                  </CCard>
+                </CCol>
+                <CCol md="4" sm="12">
+                <CCard className="p-4 border-dark">
+                    <span className="mb-2">Paket Hilang</span>
+                    <h1>10</h1>
+                  </CCard>
+                </CCol>
+                <CCol md="4" sm="12">
+                <CCard className="p-4 border-dark">
+                    <span className="mb-2">Pending</span>
+                    <h1>10</h1>
+                  </CCard>
+                </CCol>
+              </CRow>
+              <CRow>
+                <CCol md="4" sm="12">
+                  <CCard className="p-4 border-dark">
+                    <span className="mb-2">Pick Up</span>
+                    <h1>10</h1>
+                  </CCard>
+                </CCol>
+                <CCol md="4" sm="12">
+                <CCard className="p-4 border-dark">
+                    <span className="mb-2">Return</span>
+                    <h1>10</h1>
+                  </CCard>
+                </CCol>
+                <CCol md="4" sm="12">
+                <CCard className="p-4 border-dark">
+                    <span className="mb-2">Success</span>
+                    <h1>10</h1>
+                  </CCard>
+                </CCol>
+              </CRow>
+            </CCardBody>
+          </CCard>
         </CCol>
       </CRow>
     </>

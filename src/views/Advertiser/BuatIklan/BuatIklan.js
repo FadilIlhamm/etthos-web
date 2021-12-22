@@ -6,20 +6,18 @@ import DataTable from 'react-data-table-component';
 import customStyles from 'src/views/styles/stylesTables';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faPen, faTrashAlt, faPlus } from '@fortawesome/free-solid-svg-icons'
-import ModalStok from './ModalStok';
+import ModalBuatIklan from './ModalBuatIklan';
 
 const usersData = [
-    {no: 1, tanggal: '02/11/2021', noDO: '00123' , sku:'ETA01' , namaProduk:'Etawaku', gudang: 'Jakarta', stok: 15000,},
-    {no: 2, tanggal: '02/11/2021', noDO: '00123' , sku:'GIZ01' , namaProduk:'Gizidat', gudang: 'Cilacap', stok: 15000, },
-    {no: 3, tanggal: '02/11/2021', noDO: '00123' , sku:'FRE01' , namaProduk:'Freshmag', gudang: 'Surabaya', stok: 15000,},
-    {no: 4, tanggal: '02/11/2021', noDO: '00123' , sku:'GEN01' , namaProduk:'Generos', gudang: 'Jakarta', stok: 15000,},
-    {no: 5, tanggal: '02/11/2021', noDO: '00123' , sku:'GIZ02' , namaProduk:'Gizidat', gudang: 'Cilacap', stok: 1500, },
-    {no: 6, tanggal: '02/11/2021', noDO: '00123' , sku:'OPT01' , namaProduk:'Optimax', gudang: 'Surabaya', stok: 1500,},
-    {no: 7, tanggal: '02/11/2021', noDO: '00123' , sku:'ETA02' , namaProduk:'Etawaku', gudang: 'Jakarta', stok: 1000, },
+    {no: 1, tanggal: '02/11/2021', domain: 'www.optimax.com' ,  namaProduk:'Optimax', status:'Aktif'},
+    {no: 2, tanggal: '02/11/2021', domain: 'www.lambungsehat.com' ,  namaProduk:'Gizidat',  status:'Tidak Aktif'},
+    {no: 3, tanggal: '02/11/2021', domain: 'www.generos01.com' ,  namaProduk:'Generos',  status:'Aktif'},
+    {no: 4, tanggal: '02/11/2021', domain: 'www.gizidatzidat.com' ,  namaProduk:'Gizidat', status:'Aktif'},
+    {no: 5, tanggal: '02/11/2021', domain: 'www.etawaku123.com' ,  namaProduk:'Etawaku', status:'Tidak Aktif'},
 ]
 
 
-const RealStok = () => {
+const BuatIklan = () => {
     const [startDate, setStartDate] = useState(new Date());
 
     const Columns = [
@@ -33,45 +31,34 @@ const RealStok = () => {
             name : "Tanggal",
             cell : row => row.tanggal !== null ? row.tanggal : '-', 
             sortable : true,
-            maxWidth: "15px"
+           
         },
         {
-            name : "No.DO",
-            cell : row => row.noDO !== null ? row.noDO : '-', 
+            name : "Domain",
+            cell : row => row.domain !== null ? row.domain : '-', 
             sortable : true,
-            maxWidth: "150px"
-        },
-        {
-          name : "SKU",
-          cell : row => row.sku !== null ? row.sku : '-', 
-          sortable : true,
-          maxWidth: "150px"
+            
         },
         {
           name : "Nama Produk",
           cell : row => row.namaProduk !== null ? row.namaProduk : '-', 
           sortable : true,
-          maxWidth: "150px"
+         
         },
         {
-          name : "Gudang",
-          cell : row => row.gudang !== null ? row.gudang : '-', 
-          sortable : true,
-          maxWidth: "100px"
-        },
-        {
-          name : "Stok",
-          cell : row => row.stok !== null ? row.stok : '-', 
-          sortable : true,
-          maxWidth: "100px"
+          name : "Status",
+          cell : row => (
+              <span className={row.status === 'Aktif' ? "text-success" : "text-danger" } > {row.status}</span>
+          ),
+          sortable : false
         },
         {
             name : "",
             cell : row => (
                 <CRow>
                   <CCol xs={12} sm={12} md={12}>
-                    <ModalStok action="update" buttonLabel={<FontAwesomeIcon icon={faPen} />} id={ row.id } />
-                    <ModalStok action="delete" buttonLabel={<FontAwesomeIcon icon={faTrashAlt} />} id={ row.id } />
+                    <ModalBuatIklan action="update" buttonLabel={<FontAwesomeIcon icon={faPen} />} id={ row.id } />
+                    <ModalBuatIklan action="delete" buttonLabel={<FontAwesomeIcon icon={faTrashAlt} />} id={ row.id } />
                   </CCol>
                 </CRow>
             ),
@@ -84,12 +71,12 @@ const RealStok = () => {
     <>
       <CRow className="mb-5">
         <CCol md="12" xs="12">
-          <h2 className="text-info">Stok</h2>
+          <h2 className="text-info">Buat Iklan</h2>
         </CCol>
       </CRow>
 
       <div style={{backgroundColor: '#F2F2F2', borderRadius:10}} className='p-3 mb-2'>
-        <CRow className='mb-2'>
+        <CRow>
           <CCol md="9" xs="9">
             <CInputGroup size="lg">
                 <CInputGroupText className="bg-white" id="basic-addon1" size="lg"><FontAwesomeIcon size="sm" icon={faSearch}/></CInputGroupText>
@@ -97,7 +84,7 @@ const RealStok = () => {
             </CInputGroup>  
           </CCol>
           <CCol md="3" xs="3">
-            <ModalStok action="insert" buttonLabel={<FontAwesomeIcon icon={faPlus} />} style={{width:'100%'}}/>
+            <ModalBuatIklan action="insert" buttonLabel={<FontAwesomeIcon icon={faPlus} />} style={{width:'100%'}}/>
           </CCol>
         </CRow>
       </div>
@@ -110,7 +97,7 @@ const RealStok = () => {
 
         <CCol md="4" xs="12">
           <CSelect size="lg" >
-            <option>Gudang</option>
+            <option>Status</option>
             <option value="1">Semua</option>
             <option value="2">Sudah Transfer</option>
             <option value="3">Lunas</option>
@@ -151,4 +138,4 @@ const RealStok = () => {
   )
 }
 
-export default RealStok
+export default BuatIklan
